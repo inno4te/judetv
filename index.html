@@ -28,6 +28,7 @@
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
+    --nav-w: 208px;
   }
 
   *{ box-sizing:border-box; }
@@ -47,17 +48,17 @@
   /* ---------- Header ---------- */
   header.top{
     position: sticky; top:0; z-index: 40;
-    background: rgba(13,20,32,0.86);
+    background: rgba(13,20,32,0.9);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
   .top-inner{
-    max-width: 1280px; margin: 0 auto;
-    padding: 16px 24px 14px;
+    max-width: 1360px; margin: 0 auto;
+    padding: 14px 24px 12px;
     display:flex; align-items:center; gap:18px; flex-wrap:wrap;
   }
   .wordmark{ display:flex; align-items:baseline; gap:8px; margin-right:auto; }
-  .wordmark .jude{ font-family: var(--font-display); font-weight:700; font-size:22px; letter-spacing:0.2px; }
+  .wordmark .jude{ font-family: var(--font-display); font-weight:700; font-size:21px; letter-spacing:0.2px; }
   .wordmark .tvbug{
     font-family: var(--font-display); font-weight:700; font-size:14px;
     background: var(--amber); color:#20140a; padding:3px 7px; border-radius:5px; letter-spacing:0.5px;
@@ -84,20 +85,51 @@
   .modeswitch button:not(.active):hover{ color: var(--text); background: var(--panel-raised); }
 
   .tagline{
-    max-width:1280px; margin: 0 auto; padding: 0 24px 14px;
+    max-width:1360px; margin: 0 auto; padding: 0 24px 12px;
     color: var(--text-dim); font-size: 13.5px;
   }
   .tagline strong{ color: var(--text); font-weight:600; }
 
+  /* ---------- Layout: side nav + content ---------- */
+  .layout{ max-width:1360px; margin:0 auto; display:flex; gap:0; align-items:flex-start; }
+
+  .sidenav{
+    width: var(--nav-w); flex: 0 0 auto; position: sticky; top: 108px;
+    padding: 18px 14px 40px 24px; display:flex; flex-direction:column; gap:4px;
+  }
+  .sidenav .navlabel{
+    font-family: var(--font-mono); font-size:10.5px; letter-spacing:1.2px; text-transform:uppercase;
+    color: var(--text-faint); margin: 14px 6px 6px;
+  }
+  .navbtn{
+    display:flex; align-items:center; gap:10px; background:transparent; border:none;
+    color: var(--text-dim); font-size:13.5px; font-weight:600; font-family: var(--font-body);
+    padding: 9px 10px; border-radius:8px; text-align:left; width:100%;
+  }
+  .navbtn .ico{ width:16px; text-align:center; opacity:.85; }
+  .navbtn:hover{ background: var(--panel); color: var(--text); }
+  .navbtn.active{ background: var(--amber-dim); color: var(--amber); }
+  .nowplaying-nav{
+    margin-top:10px; padding:10px; border:1px solid var(--line); border-radius:9px; background: var(--panel);
+    display:none; flex-direction:column; gap:6px; cursor:pointer;
+  }
+  .nowplaying-nav.show{ display:flex; }
+  .nowplaying-nav .np-label{ font-family: var(--font-mono); font-size:10px; color: var(--live); letter-spacing:1px; display:flex; align-items:center; gap:6px; }
+  .nowplaying-nav .np-label .d{ width:5px; height:5px; border-radius:50%; background: var(--live); box-shadow:0 0 6px var(--live); animation: pulse 1.4s infinite; }
+  .nowplaying-nav .np-name{ font-size:12.5px; font-weight:600; color: var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  .content{ flex:1; min-width:0; }
+
   /* ---------- Filter rail ---------- */
   .filter-rail{
-    position: sticky; top: 84px; z-index: 30;
+    position: sticky; top: 0; z-index: 30;
     background: rgba(13,20,32,0.86); backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
-    padding: 10px 0;
+    padding: 12px 0;
+    margin-top: 6px;
   }
   .filter-inner{
-    max-width:1280px; margin:0 auto; padding: 0 24px;
+    padding: 0 24px 0 16px;
     display:flex; align-items:center; gap:12px;
   }
   .pillrow{
@@ -121,11 +153,11 @@
     border-radius: 8px; padding: 8px 11px; font-size: 12.5px; font-family: var(--font-body);
   }
   select#countrySel{ max-width: 150px; }
-  input#searchInput{ width: 180px; font-family: var(--font-mono); }
+  input#searchInput{ width: 170px; font-family: var(--font-mono); }
   input#searchInput::placeholder{ color: var(--text-faint); }
 
   /* ---------- Main / grid ---------- */
-  main{ max-width:1280px; margin:0 auto; padding: 20px 24px 140px; }
+  main{ padding: 18px 24px 140px 16px; }
   .statusline{
     display:flex; align-items:center; justify-content:space-between;
     color: var(--text-faint); font-size:12px; font-family: var(--font-mono);
@@ -134,10 +166,6 @@
   .statusline .scan{ display:flex; align-items:center; gap:8px; }
   .scan .bars{ display:flex; gap:2px; align-items:flex-end; height:10px; }
   .scan .bars i{ width:2px; background: var(--teal); display:block; animation: scanbar 1s infinite ease-in-out; }
-  .scan .bars i:nth-child(1){ height:4px; animation-delay:0s; }
-  .scan .bars i:nth-child(2){ height:8px; animation-delay:.15s; }
-  .scan .bars i:nth-child(3){ height:6px; animation-delay:.3s; }
-  .scan .bars i:nth-child(4){ height:10px; animation-delay:.45s; }
 
   .grid{
     display:grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap:12px;
@@ -178,6 +206,17 @@
   .card:hover .tunebtn{ border-color: var(--amber); color: var(--amber); }
   .card.playing .tunebtn{ background: var(--amber); border-color: var(--amber); color:#20140a; }
 
+  /* Country cards */
+  .country-card{
+    background: var(--panel); border:1px solid var(--line); border-radius: var(--radius);
+    padding: 16px; display:flex; align-items:center; gap:12px; text-align:left;
+    transition: all .15s ease; width:100%;
+  }
+  .country-card:hover{ border-color: var(--amber); background: var(--panel-raised); transform: translateY(-1px); }
+  .country-card .flag{ font-size:26px; flex:0 0 auto; }
+  .country-card .cc-name{ font-family: var(--font-display); font-weight:600; font-size:14px; flex:1; }
+  .country-card .cc-count{ font-family: var(--font-mono); font-size:11px; color: var(--teal); background: var(--teal-dim); padding:3px 8px; border-radius:6px; }
+
   /* skeletons */
   .skeleton{ background: var(--panel); border:1px solid var(--line); border-radius:var(--radius); height:118px;
     animation: shimmer 1.4s infinite ease-in-out; }
@@ -192,12 +231,12 @@
   }
 
   footer{
-    max-width:1280px; margin: 0 auto; padding: 30px 24px 160px; color: var(--text-faint);
-    font-size:11.5px; line-height:1.6; border-top:1px solid var(--line);
+    padding: 30px 24px 160px 16px; color: var(--text-faint);
+    font-size:11.5px; line-height:1.6; border-top:1px solid var(--line); margin-top:10px;
   }
   footer a{ color: var(--teal); text-decoration:none; }
 
-  /* ---------- Tuner bar (player) ---------- */
+  /* ---------- Mini tuner bar ---------- */
   .tuner{
     position: fixed; left:0; right:0; bottom:0; z-index:50;
     background: linear-gradient(180deg, var(--panel-raised), var(--bg-2));
@@ -208,59 +247,119 @@
   }
   .tuner.open{ transform: translateY(0); }
   .tuner-inner{
-    max-width:1280px; margin:0 auto; padding: 12px 20px;
-    display:flex; align-items:center; gap:16px;
+    max-width:1360px; margin:0 auto; padding: 12px 20px;
+    display:flex; align-items:center; gap:16px; cursor:pointer;
   }
-  .tuner-visual{
-    width:120px; height:70px; border-radius:7px; background:#000; overflow:hidden;
+  .tuner-visual-slot{
+    width:64px; height:44px; border-radius:7px; background:#000; overflow:hidden;
     flex:0 0 auto; position:relative; border:1px solid var(--line-strong);
     display:flex; align-items:center; justify-content:center;
   }
-  .tuner-visual video{ width:100%; height:100%; object-fit:contain; background:#000; }
-  .tuner-visual .scanline{
-    position:absolute; left:0; right:0; height:2px; background: rgba(73,211,180,0.7);
-    box-shadow: 0 0 8px var(--teal); animation: scan 2.6s linear infinite; opacity:.7;
-  }
-  .radio-viz{ display:flex; gap:3px; align-items:center; height:100%; justify-content:center; }
-  .radio-viz i{ width:4px; background: var(--teal); border-radius:2px; animation: eq 0.9s infinite ease-in-out; }
-  .radio-viz i:nth-child(1){ height:14px; animation-delay:0s; }
-  .radio-viz i:nth-child(2){ height:26px; animation-delay:.1s; }
-  .radio-viz i:nth-child(3){ height:36px; animation-delay:.2s; }
-  .radio-viz i:nth-child(4){ height:22px; animation-delay:.3s; }
-  .radio-viz i:nth-child(5){ height:30px; animation-delay:.4s; }
-  .radio-viz.paused i{ animation-play-state: paused; opacity:.3; }
-
   .tuner-info{ flex:1; min-width:0; }
   .tuner-led{
     font-family: var(--font-mono); color: var(--amber); font-size:11px; letter-spacing:1px;
     display:flex; align-items:center; gap:7px; margin-bottom:3px;
   }
   .tuner-led .liveDot{ width:6px; height:6px; border-radius:50%; background: var(--live); box-shadow:0 0 6px var(--live); animation: pulse 1.4s infinite; }
-  .tuner-name{ font-family: var(--font-display); font-weight:600; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .tuner-sub{ font-size:11.5px; color: var(--text-dim); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .tuner-msg{ font-size:11.5px; color: var(--live); margin-top:3px; }
-
-  .tuner-controls{ display:flex; align-items:center; gap:12px; flex:0 0 auto; }
-  .playpause{
-    width:38px; height:38px; border-radius:50%; background: var(--amber); border:none;
-    display:flex; align-items:center; justify-content:center; color:#20140a; font-size:15px;
+  .tuner-name{ font-family: var(--font-display); font-weight:600; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tuner-sub{ font-size:11px; color: var(--text-dim); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tuner-msg{ font-size:11px; color: var(--live); margin-top:3px; }
+  .tuner-controls{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+  .expandbtn{
+    background: transparent; border:1px solid var(--line-strong); color: var(--text-dim);
+    padding: 7px 12px; border-radius:7px; font-family: var(--font-display); font-weight:600; font-size:11.5px;
   }
-  .volwrap{ display:flex; align-items:center; gap:6px; color: var(--text-dim); font-size:12px; }
-  input[type=range]{ width:80px; accent-color: var(--amber); }
+  .expandbtn:hover{ color: var(--amber); border-color: var(--amber); }
+  .playpause{
+    width:36px; height:36px; border-radius:50%; background: var(--amber); border:none;
+    display:flex; align-items:center; justify-content:center; color:#20140a; font-size:14px; flex:0 0 auto;
+  }
   .closebtn{
     background:transparent; border:1px solid var(--line-strong); color: var(--text-dim);
-    width:32px; height:32px; border-radius:50%; font-size:14px;
+    width:32px; height:32px; border-radius:50%; font-size:14px; flex:0 0 auto;
   }
   .closebtn:hover{ color: var(--text); border-color: var(--amber); }
 
+  /* ---------- Fullscreen player ---------- */
+  .fullplayer{
+    position: fixed; inset:0; z-index: 90; background: #05070c;
+    display:none; flex-direction:column;
+  }
+  .fullplayer.open{ display:flex; }
+  .fp-topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 22px; background: linear-gradient(180deg, rgba(0,0,0,0.7), transparent);
+    position:relative; z-index:2;
+  }
+  .fp-btn{
+    background: rgba(255,255,255,0.06); border:1px solid var(--line-strong); color: var(--text);
+    padding: 9px 15px; border-radius:8px; font-family: var(--font-display); font-weight:600; font-size:13px;
+    display:flex; align-items:center; gap:7px;
+  }
+  .fp-btn:hover{ border-color: var(--amber); color: var(--amber); }
+  .fp-chip{
+    font-family: var(--font-mono); font-size:11.5px; color: var(--amber); letter-spacing:1px;
+    display:flex; align-items:center; gap:8px; background: rgba(242,169,59,0.1);
+    border:1px solid rgba(242,169,59,0.3); padding:6px 12px; border-radius:20px;
+  }
+  .fp-chip .d{ width:6px; height:6px; border-radius:50%; background: var(--live); box-shadow:0 0 6px var(--live); animation: pulse 1.4s infinite; }
+  .fp-stage{
+    flex:1; display:flex; align-items:center; justify-content:center; position:relative; padding: 0 24px;
+  }
+  .fp-stage.radio-mode{ flex-direction:column; gap:22px; }
+  .fp-stationart{
+    width:180px; height:180px; border-radius:20px; background: var(--panel);
+    border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .fp-stationart img{ width:100%; height:100%; object-fit:contain; }
+  .fp-stationart span{ font-family: var(--font-display); font-size:44px; font-weight:700; color: var(--text-dim); }
+  .fp-bottombar{
+    padding: 18px 22px 30px; background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
+    display:flex; flex-direction:column; align-items:center; gap:14px; position:relative; z-index:2;
+  }
+  .fp-title{ font-family: var(--font-display); font-weight:700; font-size:22px; text-align:center; }
+  .fp-subtitle{ font-size:13px; color: var(--text-dim); text-align:center; }
+  .fp-msg{ font-size:12.5px; color: var(--live); text-align:center; min-height:16px; }
+  .fp-controlrow{ display:flex; align-items:center; gap:18px; }
+  .fp-playpause{
+    width:56px; height:56px; border-radius:50%; background: var(--amber); border:none;
+    display:flex; align-items:center; justify-content:center; color:#20140a; font-size:20px;
+  }
+  .fp-volwrap{ display:flex; align-items:center; gap:8px; color: var(--text-dim); font-size:13px; }
+  .fp-volwrap input[type=range]{ width:110px; }
+
+  #tvPlayer{ width:100%; height:100%; object-fit:contain; background:#000; }
+  .tuner-visual-slot #tvPlayer, .tuner-visual-slot .radio-viz, .tuner-visual-slot .scanline{ }
+  .fp-stage #tvPlayer{ max-height: calc(100vh - 230px); max-width: 100%; border-radius:6px; }
+  .radio-viz{ display:flex; gap:4px; align-items:center; justify-content:center; height:40px; }
+  .radio-viz i{ width:5px; background: var(--teal); border-radius:2px; animation: eq 0.9s infinite ease-in-out; }
+  .radio-viz i:nth-child(1){ height:14px; animation-delay:0s; }
+  .radio-viz i:nth-child(2){ height:26px; animation-delay:.1s; }
+  .radio-viz i:nth-child(3){ height:38px; animation-delay:.2s; }
+  .radio-viz i:nth-child(4){ height:22px; animation-delay:.3s; }
+  .radio-viz i:nth-child(5){ height:32px; animation-delay:.4s; }
+  .radio-viz.paused i{ animation-play-state: paused; opacity:.3; }
+  .tuner-visual-slot .radio-viz{ height:100%; transform: scale(0.55); }
+  .scanline{
+    position:absolute; left:0; right:0; height:2px; background: rgba(73,211,180,0.7);
+    box-shadow: 0 0 8px var(--teal); animation: scan 2.6s linear infinite; opacity:.6; pointer-events:none;
+  }
+
+  input[type=range]{ accent-color: var(--amber); }
+
+  input[type=range]{ }
+
+  @media (max-width: 900px){
+    :root{ --nav-w: 0px; }
+    .sidenav{ display:none; }
+    .layout{ flex-direction:column; }
+  }
   @media (max-width: 720px){
     .tagline{ display:none; }
-    .filter-rail{ top:72px; }
-    input#searchInput{ width: 130px; }
-    .tuner-inner{ gap:10px; padding: 10px 12px; }
-    .tuner-visual{ width:78px; height:54px; }
+    input#searchInput{ width: 120px; }
     .tuner-sub{ display:none; }
-    .volwrap{ display:none; }
+    .fp-title{ font-size:18px; }
+    .fp-stationart{ width:130px; height:130px; }
   }
 
   @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
@@ -291,43 +390,53 @@
   <div class="tagline">Free-to-air <strong>television &amp; radio</strong>, curated safe for the whole family — every country, one dial. No sign-up, no subscription.</div>
 </header>
 
-<div class="filter-rail">
-  <div class="filter-inner">
-    <div class="pillrow" id="pillRow"></div>
-    <div class="rail-controls">
-      <select id="countrySel"><option value="">All countries</option></select>
-      <input id="searchInput" type="text" placeholder="Search dial…">
+<div class="layout">
+  <nav class="sidenav">
+    <div class="navlabel">Navigate</div>
+    <button class="navbtn active" data-view="browse"><span class="ico">▤</span> Browse categories</button>
+    <button class="navbtn" data-view="countries"><span class="ico">🌐</span> Countries</button>
+    <div class="navlabel">Now on air</div>
+    <div class="nowplaying-nav" id="npNav">
+      <div class="np-label"><span class="d"></span>PLAYING</div>
+      <div class="np-name" id="npNavName">—</div>
     </div>
+  </nav>
+
+  <div class="content">
+    <div class="filter-rail" id="filterRail">
+      <div class="filter-inner">
+        <div class="pillrow" id="pillRow"></div>
+        <div class="rail-controls">
+          <select id="countrySel"><option value="">All countries</option></select>
+          <input id="searchInput" type="text" placeholder="Search dial…">
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="statusline">
+        <span id="statusText">Tuning in…</span>
+        <span class="scan" id="scanIndicator"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </main>
+
+    <footer>
+      JudeTV Premium streams free-to-air television and radio sourced from public broadcaster directories
+      (<a href="https://iptv-org.github.io" target="_blank" rel="noopener">iptv-org</a> for TV,
+      <a href="https://www.radio-browser.info" target="_blank" rel="noopener">Radio Browser</a> for radio).
+      Channels are limited to family-oriented categories — kids, education, faith, culture, science, music, cooking,
+      travel, documentary, animation, weather, news and general interest. JudeTV Premium doesn't host or alter any
+      stream; availability and picture quality depend on each broadcaster's own server and region. If something looks
+      wrong or plays content that isn't family-appropriate, use Search to find another station on the dial.
+    </footer>
   </div>
 </div>
 
-<main>
-  <div class="statusline">
-    <span id="statusText">Tuning in…</span>
-    <span class="scan" id="scanIndicator"><i></i><i></i><i></i><i></i></span>
-  </div>
-  <div class="grid" id="grid"></div>
-</main>
-
-<footer>
-  JudeTV Premium streams free-to-air television and radio sourced from public broadcaster directories
-  (<a href="https://iptv-org.github.io" target="_blank" rel="noopener">iptv-org</a> for TV,
-  <a href="https://www.radio-browser.info" target="_blank" rel="noopener">Radio Browser</a> for radio).
-  Channels are limited to family-oriented categories — kids, education, faith, culture, science, music, cooking,
-  travel, documentary, animation, weather, news and general interest. JudeTV Premium doesn't host or alter any
-  stream; availability and picture quality depend on each broadcaster's own server and region. If something looks
-  wrong or plays content that isn't family-appropriate, use Search to find another station on the dial.
-</footer>
-
+<!-- Mini tuner bar -->
 <div class="tuner" id="tuner">
-  <div class="tuner-inner">
-    <div class="tuner-visual" id="tunerVisual">
-      <video id="tvPlayer" playsinline muted></video>
-      <div class="radio-viz" id="radioViz" style="display:none;">
-        <i></i><i></i><i></i><i></i><i></i>
-      </div>
-      <div class="scanline" id="scanline" style="display:none;"></div>
-    </div>
+  <div class="tuner-inner" id="tunerInner">
+    <div class="tuner-visual-slot" id="miniStageSlot"></div>
     <div class="tuner-info">
       <div class="tuner-led"><span class="liveDot"></span><span id="tunerChNum">CH 000</span></div>
       <div class="tuner-name" id="tunerName">Nothing tuned in</div>
@@ -335,14 +444,40 @@
       <div class="tuner-msg" id="tunerMsg"></div>
     </div>
     <div class="tuner-controls">
-      <button class="playpause" id="playPauseBtn">▶</button>
-      <div class="volwrap">
-        <span>🔊</span>
-        <input type="range" id="volSlider" min="0" max="100" value="80">
-      </div>
+      <button class="expandbtn" id="expandBtn">⤢ Full screen</button>
+      <button class="playpause" id="playPauseBtnMini">▶</button>
       <button class="closebtn" id="closeTuner">✕</button>
     </div>
   </div>
+</div>
+
+<!-- Fullscreen player -->
+<div class="fullplayer" id="fullPlayer">
+  <div class="fp-topbar">
+    <button class="fp-btn" id="fpBack">← Return</button>
+    <div class="fp-chip"><span class="d"></span><span id="fpChip">CH 000 · LIVE</span></div>
+    <button class="fp-btn" id="fpMin">— Minimize</button>
+  </div>
+  <div class="fp-stage" id="fpStage">
+    <div class="fp-stationart" id="fpArt" style="display:none;"></div>
+    <div class="fp-stage-slot" id="fpStageSlot" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"></div>
+  </div>
+  <div class="fp-bottombar">
+    <div class="fp-title" id="fpTitle">Nothing tuned in</div>
+    <div class="fp-subtitle" id="fpSubtitle">Pick a channel or station to start</div>
+    <div class="fp-msg" id="fpMsg"></div>
+    <div class="fp-controlrow">
+      <button class="fp-playpause" id="playPauseBtnFull">▶</button>
+      <div class="fp-volwrap"><span>🔊</span><input type="range" id="volSlider" min="0" max="100" value="80"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Persistent media stage (moved between mini/full slots) -->
+<div id="mediaStage" style="width:100%; height:100%; position:relative; display:flex; align-items:center; justify-content:center;">
+  <video id="tvPlayer" playsinline muted></video>
+  <div class="radio-viz" id="radioViz" style="display:none;"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="scanline" id="scanline" style="display:none;"></div>
 </div>
 
 <audio id="radioPlayer" preload="none"></audio>
@@ -377,14 +512,42 @@
     {label:'Instrumental', tags:['instrumental']}
   ];
 
+  var COUNTRY_NAMES = {
+    us:'United States', gb:'United Kingdom', ca:'Canada', au:'Australia', nz:'New Zealand',
+    ng:'Nigeria', gh:'Ghana', ke:'Kenya', za:'South Africa', tz:'Tanzania', ug:'Uganda',
+    et:'Ethiopia', cm:'Cameroon', ci:'Côte d\'Ivoire', sn:'Senegal', ml:'Mali', bf:'Burkina Faso',
+    td:'Chad', ne:'Niger', rw:'Rwanda', zm:'Zambia', zw:'Zimbabwe', mz:'Mozambique', ao:'Angola',
+    dz:'Algeria', ma:'Morocco', tn:'Tunisia', ly:'Libya', sd:'Sudan', eg:'Egypt',
+    in:'India', pk:'Pakistan', bd:'Bangladesh', lk:'Sri Lanka', np:'Nepal', mm:'Myanmar',
+    kh:'Cambodia', la:'Laos', mn:'Mongolia', kz:'Kazakhstan', uz:'Uzbekistan', af:'Afghanistan',
+    fr:'France', de:'Germany', es:'Spain', it:'Italy', nl:'Netherlands', be:'Belgium',
+    pt:'Portugal', br:'Brazil', mx:'Mexico', ar:'Argentina', co:'Colombia', cl:'Chile',
+    pe:'Peru', ve:'Venezuela', ec:'Ecuador', bo:'Bolivia', py:'Paraguay', uy:'Uruguay',
+    cr:'Costa Rica', pa:'Panama', gt:'Guatemala', hn:'Honduras', sv:'El Salvador', ni:'Nicaragua',
+    do_:'Dominican Republic', cu:'Cuba', ht:'Haiti', pr:'Puerto Rico', jm:'Jamaica',
+    tt:'Trinidad and Tobago', bb:'Barbados', gy:'Guyana', sr:'Suriname',
+    ru:'Russia', cn:'China', jp:'Japan', kr:'South Korea', ph:'Philippines', id:'Indonesia',
+    my:'Malaysia', sg:'Singapore', th:'Thailand', vn:'Vietnam', tr:'Türkiye', il:'Israel',
+    sa:'Saudi Arabia', ae:'United Arab Emirates', qa:'Qatar', kw:'Kuwait', om:'Oman', bh:'Bahrain',
+    jo:'Jordan', lb:'Lebanon', sy:'Syria', iq:'Iraq', ir:'Iran', ye:'Yemen',
+    gr:'Greece', pl:'Poland', se:'Sweden', no:'Norway', dk:'Denmark', fi:'Finland',
+    ie:'Ireland', ch:'Switzerland', at:'Austria', cz:'Czechia', ro:'Romania', ua:'Ukraine',
+    by:'Belarus', lt:'Lithuania', lv:'Latvia', ee:'Estonia', hu:'Hungary', bg:'Bulgaria',
+    hr:'Croatia', si:'Slovenia', sk:'Slovakia', rs:'Serbia', ba:'Bosnia and Herzegovina',
+    al:'Albania', mk:'North Macedonia', md:'Moldova', ge:'Georgia', am:'Armenia', az:'Azerbaijan',
+    is_:'Iceland', lu:'Luxembourg', mt:'Malta', cy:'Cyprus', hk:'Hong Kong', tw:'Taiwan'
+  };
+
   var state = {
     mode: 'tv',
+    view: 'browse', // 'browse' | 'countries'
     tv: { all: [], byUrl: {}, loaded: {} },
     radio: { all: [], byId: {}, loaded: {} },
     activeCategory: 'All',
     activeCountry: '',
     search: '',
-    nowPlaying: null,  // {kind, id}
+    nowPlaying: null,
+    playerView: 'closed', // 'closed' | 'mini' | 'full'
     hls: null
   };
 
@@ -401,13 +564,18 @@
     }
     return String.fromCodePoint.apply(null, codePoints);
   }
-
+  function countryName(cc){
+    if(!cc) return 'Unknown';
+    var key = cc.toLowerCase();
+    if(key === 'do') key = 'do_';
+    if(key === 'is') key = 'is_';
+    return COUNTRY_NAMES[key] || cc.toUpperCase();
+  }
   function escapeHtml(s){
     return (s||'').replace(/[&<>"']/g, function(c){
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
     });
   }
-
   function el(html){
     var d = document.createElement('div');
     d.innerHTML = html.trim();
@@ -466,10 +634,7 @@
       render();
     });
   }
-
-  function loadAllTV(){
-    return Promise.all(TV_CATEGORIES.map(loadTVCategory));
-  }
+  function loadAllTV(){ return Promise.all(TV_CATEGORIES.map(loadTVCategory)); }
 
   /* ============ LOADING: RADIO ============ */
   function loadRadioTag(tag, groupLabel){
@@ -503,14 +668,22 @@
       render();
     });
   }
-
   function loadAllRadio(){
     var jobs = [];
-    RADIO_GROUPS.forEach(function(g){
-      g.tags.forEach(function(t){ jobs.push(loadRadioTag(t, g.label)); });
-    });
+    RADIO_GROUPS.forEach(function(g){ g.tags.forEach(function(t){ jobs.push(loadRadioTag(t, g.label)); }); });
     return Promise.all(jobs);
   }
+
+  /* ============ NAV / VIEW SWITCH ============ */
+  document.querySelectorAll('.navbtn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.navbtn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.view = btn.getAttribute('data-view');
+      document.getElementById('filterRail').style.display = state.view === 'browse' ? 'block' : 'none';
+      render();
+    });
+  });
 
   /* ============ CATEGORY PILLS ============ */
   function currentCategoryLabels(){
@@ -518,7 +691,6 @@
       ? ['All'].concat(TV_CATEGORIES.map(function(c){return c.label;}))
       : ['All'].concat(RADIO_GROUPS.map(function(g){return g.label;}));
   }
-
   function renderPills(){
     var row = document.getElementById('pillRow');
     row.innerHTML = '';
@@ -541,14 +713,14 @@
     var list = state.mode === 'tv' ? state.tv.all : state.radio.all;
     var set = {};
     list.forEach(function(it){ if(it.country) set[it.country.toLowerCase()] = true; });
-    var codes = Object.keys(set).sort();
+    var codes = Object.keys(set).sort(function(a,b){ return countryName(a).localeCompare(countryName(b)); });
     sel.innerHTML = '<option value="">All countries</option>' + codes.map(function(c){
-      return '<option value="'+c+'">'+flagEmoji(c)+' '+c.toUpperCase()+'</option>';
+      return '<option value="'+c+'">'+flagEmoji(c)+' '+countryName(c)+'</option>';
     }).join('');
     sel.value = codes.indexOf(current) > -1 ? current : '';
   }
 
-  /* ============ RENDER GRID ============ */
+  /* ============ RENDER: CHANNEL/STATION GRID ============ */
   function getFilteredList(){
     var list = state.mode === 'tv' ? state.tv.all : state.radio.all;
     var cat = state.activeCategory;
@@ -567,14 +739,12 @@
 
   function anyLoading(){
     var loaded = state.mode === 'tv' ? state.tv.loaded : state.radio.loaded;
-    var total = state.mode === 'tv' ? TV_CATEGORIES.length : Object.keys(loaded).length;
     var done = Object.keys(loaded).length;
     var expected = state.mode === 'tv' ? TV_CATEGORIES.length : RADIO_GROUPS.reduce(function(n,g){return n+g.tags.length;},0);
     return done < expected;
   }
 
-  function render(){
-    renderStatus();
+  function renderChannelGrid(){
     var grid = document.getElementById('grid');
     var list = getFilteredList();
     grid.innerHTML = '';
@@ -583,7 +753,6 @@
       for(var s=0;s<8;s++){ grid.appendChild(el('<div class="skeleton"></div>')); }
       return;
     }
-
     if(list.length === 0){
       var loaded = state.mode === 'tv' ? state.tv.loaded : state.radio.loaded;
       var allFailed = Object.keys(loaded).length > 0 && Object.keys(loaded).every(function(k){ return loaded[k] === 'fail'; });
@@ -594,22 +763,18 @@
           '<button id="retryBtn">Retry scan</button></div>'
         ));
         document.getElementById('retryBtn').addEventListener('click', function(){
-          if(state.mode === 'tv'){ state.tv.loaded = {}; loadAllTV(); }
-          else { state.radio.loaded = {}; loadAllRadio(); }
+          if(state.mode === 'tv'){ state.tv.loaded = {}; loadAllTV(); } else { state.radio.loaded = {}; loadAllRadio(); }
           render();
         });
       } else {
-        grid.appendChild(el(
-          '<div class="empty"><h3>Nothing on this frequency</h3>' +
-          '<p>Try a different category, country, or search term.</p></div>'
-        ));
+        grid.appendChild(el('<div class="empty"><h3>Nothing on this frequency</h3><p>Try a different category, country, or search term.</p></div>'));
       }
       return;
     }
 
     list.forEach(function(item, idx){
       var num = String(idx+1).padStart(3,'0');
-      var isPlaying = state.nowPlaying && state.nowPlaying.kind === state.mode && state.nowPlaying.id === item.id;
+      var isPlaying = state.nowPlaying && state.nowPlaying.kind === state.mode && state.nowPlaying.id === item.id && state.playerView !== 'closed';
       var logoHtml = item.logo
         ? '<img src="'+escapeHtml(item.logo)+'" alt="" onerror="this.parentNode.innerHTML=\'<span>'+escapeHtml((item.name||'?').slice(0,2).toUpperCase())+'</span>\'">'
         : '<span>'+escapeHtml((item.name||'?').slice(0,2).toUpperCase())+'</span>';
@@ -633,20 +798,99 @@
     });
   }
 
-  function renderStatus(){
+  /* ============ RENDER: COUNTRIES ============ */
+  function renderCountriesGrid(){
+    var grid = document.getElementById('grid');
+    grid.innerHTML = '';
     var list = state.mode === 'tv' ? state.tv.all : state.radio.all;
-    var filtered = getFilteredList();
+
+    if(list.length === 0 && anyLoading()){
+      for(var s=0;s<8;s++){ grid.appendChild(el('<div class="skeleton"></div>')); }
+      return;
+    }
+
+    var counts = {};
+    list.forEach(function(it){
+      var c = (it.country||'').toLowerCase();
+      if(!c) return;
+      counts[c] = (counts[c]||0) + 1;
+    });
+    var codes = Object.keys(counts).sort(function(a,b){ return countryName(a).localeCompare(countryName(b)); });
+
+    if(codes.length === 0){
+      grid.appendChild(el('<div class="empty"><h3>No countries tuned in yet</h3><p>Still scanning the dial — check back in a moment.</p></div>'));
+      return;
+    }
+
+    codes.forEach(function(cc){
+      var card = el(
+        '<button class="country-card">' +
+          '<span class="flag">'+flagEmoji(cc)+'</span>' +
+          '<span class="cc-name">'+escapeHtml(countryName(cc))+'</span>' +
+          '<span class="cc-count">'+counts[cc]+'</span>' +
+        '</button>'
+      );
+      card.addEventListener('click', function(){
+        state.activeCountry = cc;
+        state.activeCategory = 'All';
+        state.view = 'browse';
+        document.querySelectorAll('.navbtn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-view')==='browse'); });
+        document.getElementById('filterRail').style.display = 'block';
+        document.getElementById('countrySel').value = cc;
+        renderPills();
+        render();
+        window.scrollTo({top:0, behavior:'smooth'});
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function renderStatus(){
     var loading = anyLoading();
-    document.getElementById('statusText').textContent =
-      loading ? 'Scanning frequencies… ' + filtered.length + ' found so far'
-              : filtered.length + ' ' + (state.mode === 'tv' ? 'channel' : 'station') + (filtered.length===1?'':'s') + ' on the dial';
+    if(state.view === 'countries'){
+      var list = state.mode === 'tv' ? state.tv.all : state.radio.all;
+      var ccSet = {}; list.forEach(function(it){ if(it.country) ccSet[it.country.toLowerCase()] = true; });
+      document.getElementById('statusText').textContent =
+        loading ? 'Scanning frequencies… ' + Object.keys(ccSet).length + ' countries found so far'
+                : Object.keys(ccSet).length + ' countries on the dial';
+    } else {
+      var filtered = getFilteredList();
+      document.getElementById('statusText').textContent =
+        loading ? 'Scanning frequencies… ' + filtered.length + ' found so far'
+                : filtered.length + ' ' + (state.mode === 'tv' ? 'channel' : 'station') + (filtered.length===1?'':'s') + ' on the dial';
+    }
     document.getElementById('scanIndicator').style.display = loading ? 'flex' : 'none';
   }
 
-  /* ============ TUNER / PLAYBACK ============ */
+  function render(){
+    renderStatus();
+    if(state.view === 'countries') renderCountriesGrid();
+    else renderChannelGrid();
+    updateNowPlayingNav();
+  }
+
+  function updateNowPlayingNav(){
+    var nav = document.getElementById('npNav');
+    if(state.nowPlaying && state.playerView !== 'closed'){
+      nav.classList.add('show');
+      document.getElementById('npNavName').textContent = state.nowPlaying.item.name;
+    } else {
+      nav.classList.remove('show');
+    }
+  }
+  document.getElementById('npNav').addEventListener('click', function(){ if(state.nowPlaying) openFull(); });
+
+  /* ============ PLAYBACK ============ */
   var tvPlayer = document.getElementById('tvPlayer');
   var radioPlayer = document.getElementById('radioPlayer');
   var tunerEl = document.getElementById('tuner');
+  var fullEl = document.getElementById('fullPlayer');
+  var mediaStage = document.getElementById('mediaStage');
+
+  function moveMediaTo(where){
+    var slot = where === 'full' ? document.getElementById('fpStageSlot') : document.getElementById('miniStageSlot');
+    slot.appendChild(mediaStage);
+  }
 
   function stopAll(){
     try{ tvPlayer.pause(); tvPlayer.removeAttribute('src'); tvPlayer.load(); }catch(e){}
@@ -654,29 +898,43 @@
     if(state.hls){ try{ state.hls.destroy(); }catch(e){} state.hls = null; }
   }
 
-  function setTunerMsg(msg){ document.getElementById('tunerMsg').textContent = msg || ''; }
+  function setMsg(msg){
+    document.getElementById('tunerMsg').textContent = msg || '';
+    document.getElementById('fpMsg').textContent = msg || '';
+  }
 
   function tuneTo(item){
     state.nowPlaying = { kind: state.mode, id: item.id, item: item };
     stopAll();
-    setTunerMsg('');
-    tunerEl.classList.add('open');
-
-    var listIdxNum = getFilteredList().findIndex(function(x){ return x.id === item.id; });
-    document.getElementById('tunerChNum').textContent = 'CH ' + String(listIdxNum >= 0 ? listIdxNum+1 : 0).padStart(3,'0');
-    document.getElementById('tunerName').textContent = item.name;
-    document.getElementById('tunerSub').textContent = item.category + (item.country ? '  ·  ' + flagEmoji(item.country) + ' ' + item.country.toUpperCase() : '');
+    setMsg('');
 
     var isTV = state.mode === 'tv';
     document.getElementById('radioViz').style.display = isTV ? 'none' : 'flex';
     document.getElementById('scanline').style.display = isTV ? 'block' : 'none';
     tvPlayer.style.display = isTV ? 'block' : 'none';
 
-    if(isTV){
-      playTV(item.url);
+    var listIdxNum = getFilteredList().findIndex(function(x){ return x.id === item.id; });
+    var chLabel = 'CH ' + String(listIdxNum >= 0 ? listIdxNum+1 : 0).padStart(3,'0');
+    document.getElementById('tunerChNum').textContent = chLabel;
+    document.getElementById('tunerName').textContent = item.name;
+    document.getElementById('tunerSub').textContent = item.category + (item.country ? '  ·  ' + flagEmoji(item.country) + ' ' + countryName(item.country) : '');
+    document.getElementById('fpChip').textContent = chLabel + ' · LIVE';
+    document.getElementById('fpTitle').textContent = item.name;
+    document.getElementById('fpSubtitle').textContent = item.category + (item.country ? '  ·  ' + flagEmoji(item.country) + ' ' + countryName(item.country) : '');
+
+    var art = document.getElementById('fpArt');
+    if(!isTV){
+      art.style.display = 'flex';
+      art.innerHTML = item.logo
+        ? '<img src="'+escapeHtml(item.logo)+'" alt="" onerror="this.parentNode.innerHTML=\'<span>'+escapeHtml((item.name||'?').slice(0,2).toUpperCase())+'</span>\'">'
+        : '<span>'+escapeHtml((item.name||'?').slice(0,2).toUpperCase())+'</span>';
     } else {
-      playRadio(item.url);
+      art.style.display = 'none';
+      art.innerHTML = '';
     }
+
+    openFull();
+    if(isTV) playTV(item.url); else playRadio(item.url);
     render();
   }
 
@@ -687,7 +945,7 @@
       state.hls.loadSource(url);
       state.hls.attachMedia(tvPlayer);
       state.hls.on(Hls.Events.ERROR, function(evt, data){
-        if(data && data.fatal){ setTunerMsg('Signal lost on this channel — try another.'); setPlayIcon(false); }
+        if(data && data.fatal){ setMsg('Signal lost on this channel — try another.'); setPlayIcon(false); }
       });
       state.hls.on(Hls.Events.MANIFEST_PARSED, function(){
         tvPlayer.play().then(function(){ setPlayIcon(true); }).catch(function(){ setPlayIcon(false); });
@@ -696,44 +954,82 @@
       tvPlayer.src = url;
       tvPlayer.play().then(function(){ setPlayIcon(true); }).catch(function(){ setPlayIcon(false); });
     } else {
-      setTunerMsg('This browser can\'t decode this channel\'s stream.');
+      setMsg('This browser can\'t decode this channel\'s stream.');
       setPlayIcon(false);
     }
-    tvPlayer.onerror = function(){ setTunerMsg('Signal lost on this channel — try another.'); setPlayIcon(false); };
+    tvPlayer.onerror = function(){ setMsg('Signal lost on this channel — try another.'); setPlayIcon(false); };
   }
 
   function playRadio(url){
     radioPlayer.src = url;
     radioPlayer.volume = document.getElementById('volSlider').value / 100;
     radioPlayer.play().then(function(){ setPlayIcon(true); }).catch(function(){ setPlayIcon(false); });
-    radioPlayer.onerror = function(){ setTunerMsg('This station isn\'t responding — try another.'); setPlayIcon(false); };
+    radioPlayer.onerror = function(){ setMsg('This station isn\'t responding — try another.'); setPlayIcon(false); };
   }
 
   function setPlayIcon(playing){
-    document.getElementById('playPauseBtn').textContent = playing ? '❚❚' : '▶';
+    var icon = playing ? '❚❚' : '▶';
+    document.getElementById('playPauseBtnMini').textContent = icon;
+    document.getElementById('playPauseBtnFull').textContent = icon;
     document.getElementById('radioViz').classList.toggle('paused', !playing);
   }
 
-  document.getElementById('playPauseBtn').addEventListener('click', function(){
+  function togglePlayPause(){
     if(!state.nowPlaying) return;
     var mediaEl = state.mode === 'tv' ? tvPlayer : radioPlayer;
     if(mediaEl.paused){
-      mediaEl.play().then(function(){ setPlayIcon(true); }).catch(function(){ setTunerMsg('Tap play again to start audio.'); });
+      mediaEl.play().then(function(){ setPlayIcon(true); }).catch(function(){ setMsg('Tap play again to start.'); });
     } else {
       mediaEl.pause(); setPlayIcon(false);
     }
-  });
+  }
+  document.getElementById('playPauseBtnMini').addEventListener('click', function(e){ e.stopPropagation(); togglePlayPause(); });
+  document.getElementById('playPauseBtnFull').addEventListener('click', togglePlayPause);
 
   document.getElementById('volSlider').addEventListener('input', function(e){
     var v = e.target.value / 100;
     tvPlayer.volume = v; radioPlayer.volume = v;
   });
 
-  document.getElementById('closeTuner').addEventListener('click', function(){
+  /* ---- view state transitions ---- */
+  function openFull(){
+    state.playerView = 'full';
+    moveMediaTo('full');
+    fullEl.classList.add('open');
+    tunerEl.classList.remove('open');
+    document.body.style.overflow = 'hidden';
+    updateNowPlayingNav();
+  }
+  function minimizeToMini(){
+    state.playerView = 'mini';
+    moveMediaTo('mini');
+    fullEl.classList.remove('open');
+    tunerEl.classList.add('open');
+    document.body.style.overflow = '';
+    render();
+  }
+  function closePlayerFully(){
     stopAll();
     state.nowPlaying = null;
+    state.playerView = 'closed';
+    fullEl.classList.remove('open');
     tunerEl.classList.remove('open');
+    document.body.style.overflow = '';
     render();
+  }
+
+  document.getElementById('fpMin').addEventListener('click', minimizeToMini);
+  document.getElementById('fpBack').addEventListener('click', closePlayerFully);
+  document.getElementById('closeTuner').addEventListener('click', function(e){ e.stopPropagation(); closePlayerFully(); });
+  document.getElementById('expandBtn').addEventListener('click', function(e){ e.stopPropagation(); openFull(); });
+  document.getElementById('tunerInner').addEventListener('click', function(e){
+    if(e.target.closest('.playpause') || e.target.closest('.closebtn') || e.target.closest('.expandbtn')) return;
+    openFull();
+  });
+
+  /* keyboard: Esc minimizes fullscreen (keeps playing), doesn't fully close */
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && state.playerView === 'full'){ minimizeToMini(); }
   });
 
   /* ============ MODE / FILTER WIRING ============ */
@@ -751,7 +1047,6 @@
     if(mode === 'tv' && state.tv.all.length === 0) loadAllTV();
     if(mode === 'radio' && state.radio.all.length === 0) loadAllRadio();
   }
-
   document.getElementById('modeTV').addEventListener('click', function(){ switchMode('tv'); });
   document.getElementById('modeRadio').addEventListener('click', function(){ switchMode('radio'); });
   document.getElementById('countrySel').addEventListener('change', function(e){ state.activeCountry = e.target.value; render(); });
@@ -760,10 +1055,8 @@
   /* ============ CLOCK ============ */
   function tickClock(){
     var d = new Date();
-    var hh = String(d.getHours()).padStart(2,'0');
-    var mm = String(d.getMinutes()).padStart(2,'0');
-    var ss = String(d.getSeconds()).padStart(2,'0');
-    document.getElementById('clock').textContent = hh+':'+mm+':'+ss;
+    document.getElementById('clock').textContent =
+      String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');
   }
   tickClock();
   setInterval(tickClock, 1000);
